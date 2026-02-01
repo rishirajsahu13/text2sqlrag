@@ -10,7 +10,7 @@ from app.config import settings
 from app.services.vector_service import VectorService
 from app.services.embedding_service import EmbeddingService
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("rag_app.rag_service")
 
 
 class RAGService:

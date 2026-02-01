@@ -8,7 +8,7 @@ from openai import AsyncOpenAI
 import logging
 from app.config import settings
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("rag_app.embedding_service")
 
 
 class EmbeddingService:
@@ -62,6 +62,7 @@ class EmbeddingService:
             cache_hits = 0
             cache_misses = 0
 
+            logger.info("Checking cache for %d texts", len(texts))
             for i, text in enumerate(texts):
                 cache_key = self.query_cache_service.get_embedding_key(text)
                 cached = self.query_cache_service.get(cache_key, cache_type="embedding")
@@ -75,15 +76,17 @@ class EmbeddingService:
                     text_indices.append(i)
                     cache_misses += 1
 
+            logger.info("Cache stats - Hits: %d, Misses: %d", cache_hits, cache_misses)
             # Generate embeddings for uncached texts
             if texts_to_generate:
                 try:
+                    logger.info("Generating embeddings for %d uncached texts", len(texts_to_generate))
                     response = await self.client.embeddings.create(
                         model=self.model,
                         input=texts_to_generate,
                         encoding_format="float"
                     )
-
+                    logger.info("Generated embeddings for %d texts", len(response.data))
                     new_embeddings = [item.embedding for item in response.data]
 
                     # Cache new embeddings and fill in results
@@ -119,6 +122,7 @@ class EmbeddingService:
                     return embeddings, usage_info
 
                 except Exception as e:
+                    logger.error("Failed to generate embeddings: %s", str(e))
                     raise Exception(f"Failed to generate embeddings: {str(e)}")
             else:
                 # All embeddings came from cache

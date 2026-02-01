@@ -1277,7 +1277,7 @@ def initialize_services():
     if OPIK_AVAILABLE:
         try:
             if settings.OPIK_API_KEY:
-                logger.info("Initializing OPIK monitoring...")
+                logger.info("Initializing OPIK monitoring...## :%s", settings.OPIK_API_KEY)
 
                 # Lambda-safe OPIK initialization
                 # Redirect stdin to /dev/null to prevent "EOF when reading a line" errors

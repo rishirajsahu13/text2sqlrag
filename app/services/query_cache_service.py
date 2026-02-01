@@ -16,8 +16,8 @@ import logging
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger("rag_app.query_cache_service")
 
 class QueryCacheService:
     """Redis-based cache service for query results, embeddings, and SQL."""
