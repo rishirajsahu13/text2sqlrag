@@ -35,7 +35,8 @@ class QueryCacheService:
         """
         self.enabled = False
         self.client = None
-
+        logger.info(" redis_url: %s", redis_url)
+        logger.info(" redis_token: %s", redis_token)
         # Cache statistics (stored in-memory per instance)
         self.stats = {
             "embedding": {"hits": 0, "misses": 0},
