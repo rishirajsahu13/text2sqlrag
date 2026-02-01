@@ -22,7 +22,7 @@ jobs:
           echo "=========================================="
           echo "🚀 AWS Lambda Deployment Started"
           echo "=========================================="
-          echo "Trigger: Push to main branch"
+          echo "Trigger: Push to main branch--"
           echo "Commit: ${{ github.sha }}"
           echo "Author: ${{ github.actor }}"
           echo "Repository: ${{ github.repository }}"
