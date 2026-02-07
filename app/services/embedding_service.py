@@ -128,7 +128,18 @@ class EmbeddingService:
 
                 except Exception as e:
                     logger.error("Failed to generate embeddings: %s", str(e))
-                    raise Exception(f"Failed to generate embeddings: {str(e)}")
+                    logger.error("Exception type: %s", type(e).__name__)
+                    logger.error("Exception repr: %r", e)
+
+                    if e.__cause__:
+                        logger.error("Cause: %r", e.__cause__)
+                    if e.__context__:
+                        logger.error("Context: %r", e.__context__)
+
+                    logger.error("Traceback:\n%s", "".join(
+                        traceback.format_exception(type(e), e, e.__traceback__)
+                    ))
+                    raise
             else:
                 # All embeddings came from cache
                 logger.debug(f"Embedding cache: {cache_hits} hits, 0 misses (100% cache hit rate)")
