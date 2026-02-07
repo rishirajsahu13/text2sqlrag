@@ -10,6 +10,10 @@ from app.config import settings
 
 logger = logging.getLogger("rag_app.embedding_service")
 
+# TEMPORARY debugging
+logging.getLogger("httpx").setLevel(logging.DEBUG)
+logging.getLogger("httpcore").setLevel(logging.DEBUG)
+
 
 class EmbeddingService:
     """Service for generating text embeddings using OpenAI."""
