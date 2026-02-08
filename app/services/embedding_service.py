@@ -31,6 +31,9 @@ class EmbeddingService:
             raise ValueError("OpenAI API key is required. Set OPENAI_API_KEY in .env file.")
 
         logger.info("Initializing OpenAI client with API key: %s", self.api_key)
+        logger.info("API key repr: %r", self.api_key)
+        logger.info("API key length: %d", len(self.api_key))
+
         try:
             self.client = AsyncOpenAI(api_key=self.api_key)
         except Exception as e:
